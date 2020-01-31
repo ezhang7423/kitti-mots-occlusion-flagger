@@ -68,7 +68,7 @@ def writeOcclusion(path):
         fout.write(str(occlusions))
 
 def testing():
-    writeOcclusion("instances_txt/0000.txt")
+    writeOcclusion("instances_txt/0001.txt")
 if __name__ == "__main__":
     # INSTANCE_PATH = r"C:\Users\Victor\Desktop\resarch\instances_txt"
     # for file in os.listdir(INSTANCE_PATH):
