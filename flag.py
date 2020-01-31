@@ -53,7 +53,7 @@ def writeOcclusion(path):
     occlusions = []
     for x in range(len(frames)):
         occlusions.append(isOccluded(returnBoxes(frames[x])))
-    filename = os.path.basename(path) + "occlusions.txt"
+    filename = os.path.basename(path)[:-4] + "occlusions.txt"
     with open(os.path.join(INSTANCE_PATH, filename), 'w') as fout:
         fout.write(str(occlusions))
 
