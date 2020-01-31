@@ -21,18 +21,18 @@ def isOccluded(boxes):
         # xf += [box[2]]
         x_index = [box[0], box[2]]
         for i in range(len(x0)):
-            if x0[i] <= x_index[0] <= xf[i]:
+            if x0[i] <= x_index[0] <= x0[i] + xf[i]:
                 return True
-            elif x0[i] <= x_index[1] <= xf[i]:
+            elif x0[i] <= x_index[1] <= x0[i] + xf[i]:
                 return True
         x0.append(x_index[0])
         xf.append(x_index[1])
 
         y_index = [box[1], box[3]]
         for i in range(len(y0)):
-            if y0[i] <= y_index[0] <= yf[i]:
+            if y0[i] <= y_index[0] <= y0[i] + yf[i]:
                 return True
-            elif y0[i] <= y_index[1] <= yf[i]:
+            elif y0[i] <= y_index[1] <= y0[i] + yf[i]:
                 return True
         y0.append(y_index[0])
         yf.append(y_index[1])
