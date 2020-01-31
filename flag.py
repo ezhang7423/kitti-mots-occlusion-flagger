@@ -32,21 +32,20 @@ def isOccluded(boxes):
         for i in range(len(x0)):
             if x0[i] <= x_index[0] <= xf[i]:
                 return True
-            elif x[i] <= x_index[1] <= xf[i]:
+            elif x0[i] <= x_index[1] <= xf[i]:
                 return True
         x0.append(x_index[0])
-        xf.append(x_index[2])
+        xf.append(x_index[1])
 
         y_index = [box[1], box[3]]
         for i in range(len(y0)):
             if y0[i] <= y_index[0] <= yf[i]:
                 return True
-            elif y[i] <= y_index[1] <= yf[i]:
+            elif y0[i] <= y_index[1] <= yf[i]:
                 return True
         y0.append(y_index[0])
-        yf.append(y_index[2])
+        yf.append(y_index[1])
         # check if collision
-        
     return False;
 
 
@@ -61,8 +60,9 @@ def returnBoxes(frame):
 if __name__ == "__main__":
     frames = load_txt("instance_sample.txt")
     occlusions = []
-    # for x in range(len(frames)):
-    occlusions.append(isOccluded(returnBoxes(frames[128])))
+    for x in range(len(frames)):
+        occlusions.append(isOccluded(returnBoxes(frames[x])))
+    print(occlusions)
 
     
 
