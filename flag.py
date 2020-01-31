@@ -9,16 +9,6 @@ import pycocotools.mask as rletools
 from iot import load_sequences, load_seqmap, load_txt
 
 
-
-# def decoded_object(segobject):
-#     decoded = rletools.decode(segobject)
-#     for x in range(len(decoded)):
-#         for y in range(len(decoded[x])):
-#             if (decoded[x][y] != 0):
-#                 #do something here
-#     return;
-
-
 def isOccluded(boxes):
     x0 = []
     xf = []
@@ -57,12 +47,20 @@ def returnBoxes(frame):
             bBoxes.append(rletools.toBbox(frame128[x].mask))
     return bBoxes
 
-if __name__ == "__main__":
-    frames = load_txt("instance_sample.txt")
+
+def writeOcclusion(path):
+    frames = load_txt(os.path.join(INSTANCE_PATH, path))
     occlusions = []
     for x in range(len(frames)):
         occlusions.append(isOccluded(returnBoxes(frames[x])))
-    print(occlusions)
+    filename = os.path.basename(path) + "occlusions.txt"
+    with open(os.path.join(INSTANCE_PATH, filename), 'w') as fout:
+        fout.write(str(occlusions))
+
+if __name__ == "__main__":
+    INSTANCE_PATH = r"C:\Users\Victor\Desktop\resarch\instances_txt"
+    for file in os.listdir(INSTANCE_PATH):
+        writeOcclusion(file)
 
     
 
