@@ -52,15 +52,23 @@ def writeOcclusion(path):
     frames = load_txt(os.path.join(INSTANCE_PATH, path))
     occlusions = []
     for x in range(len(frames)):
-        occlusions.append(isOccluded(returnBoxes(frames[x])))
+        try:
+            oc = isOccluded(returnBoxes(frames[x]))
+            occlusions.append(oc)
+            if oc:
+                print("Occlusion at frame", x)
+        except KeyError:
+            print('No data at frame', x)
     filename = os.path.basename(path)[:-4] + "occlusions.txt"
-    with open(os.path.join(INSTANCE_PATH, filename), 'w') as fout:
+    os.makedirs(os.path.join(INSTANCE_PATH, "occlusions"), exist_ok = True)
+    with open(os.path.join(INSTANCE_PATH, "occlusions", filename), 'w') as fout:
+        print("finished", filename)
         fout.write(str(occlusions))
+
 
 if __name__ == "__main__":
     INSTANCE_PATH = r"C:\Users\Victor\Desktop\resarch\instances_txt"
     for file in os.listdir(INSTANCE_PATH):
         writeOcclusion(file)
-
     
 
