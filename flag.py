@@ -1,6 +1,7 @@
 import sys
 import os
 import colorsys
+import time
 sys.path.insert(0, r"C:\Users\Victor\Desktop\resarch\cocoapi\PythonAPI")
 
 import numpy as np
@@ -56,9 +57,10 @@ def writeOcclusion(path):
             oc = isOccluded(returnBoxes(frames[x]))
             occlusions.append(oc)
             if oc:
-                print("Occlusion at frame", x)
+                print("Occlusion at file", os.path.basename(path)[:-4], "frame", x)
         except KeyError:
             print('No data at frame', x)
+            time.sleep(.1)
     filename = os.path.basename(path)[:-4] + "occlusions.txt"
     os.makedirs(os.path.join(INSTANCE_PATH, "occlusions"), exist_ok = True)
     with open(os.path.join(INSTANCE_PATH, "occlusions", filename), 'w') as fout:
