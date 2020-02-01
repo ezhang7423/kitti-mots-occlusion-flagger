@@ -1,14 +1,11 @@
-import sys
-import os
-import colorsys
 import time
-sys.path.insert(0, r"C:\Users\Victor\Desktop\resarch\cocoapi\PythonAPI")
-
-import numpy as np
-import matplotlib.pyplot as plt
-import pycocotools.mask as rletools
+import colorsys
+import os
 from iot import load_sequences, load_seqmap, load_txt
-
+import matplotlib.pyplot as plt
+import numpy as np
+import sys
+import pycocotools.mask as rletools
 
 def isOccluded(boxes):
     x0 = []
@@ -37,7 +34,7 @@ def isOccluded(boxes):
         y0.append(y_index[0])
         yf.append(y_index[1])
         # check if collision
-    return False;
+    return False
 
 
 def returnBoxes(frame):
@@ -57,23 +54,25 @@ def writeOcclusion(path):
             oc = isOccluded(returnBoxes(frames[x]))
             occlusions.append(oc)
             if oc:
-                print("Occlusion at file", os.path.basename(path)[:-4], "frame", x)
+                print("Occlusion at file", os.path.basename(
+                    path)[:-4], "frame", x)
         except KeyError:
             print('No data at frame', x)
             time.sleep(.1)
     filename = os.path.basename(path)[:-4] + "occlusions.txt"
-    os.makedirs(os.path.join(INSTANCE_PATH, "occlusions"), exist_ok = True)
+    os.makedirs(os.path.join(INSTANCE_PATH, "occlusions"), exist_ok=True)
     with open(os.path.join(INSTANCE_PATH, "occlusions", filename), 'w') as fout:
         print("finished", filename)
         fout.write(str(occlusions))
 
+
 def testing():
     writeOcclusion("instances_txt/0001.txt")
-if __name__ == "__main__":
-    # INSTANCE_PATH = r"C:\Users\Victor\Desktop\resarch\instances_txt"
-    # for file in os.listdir(INSTANCE_PATH):
-    #     writeOcclusion(file)
-    INSTANCE_PATH = "./"
-    testing()
-    
 
+
+if __name__ == "__main__":
+    INSTANCE_PATH = r"./instances_txt"
+    for file in os.listdir(INSTANCE_PATH):
+        writeOcclusion(file)
+    # INSTANCE_PATH = "./"
+    # testing()
