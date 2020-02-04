@@ -1,5 +1,7 @@
 import PIL.Image as Image
 import numpy as np
+import sys
+sys.path.insert(0, "/Users/leena/Documents/ersp/kitti-mots-occlusion-flagger/cocoapi/PythonAPI")
 import pycocotools.mask as rletools
 import glob
 import os
