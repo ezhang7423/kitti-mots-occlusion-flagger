@@ -13,24 +13,39 @@ def isOccluded(boxes):
     y0 = []
     yf = []
     for x in range(len(boxes)):
+        print(boxes[x])    
         box = [i for i in boxes[x]]
         # x0 += [box[0]] move this to bottom of function
         # xf += [box[2]]
         x_index = [box[0], box[2]]
+        y_index = [box[1], box[3]]
         for i in range(len(x0)):
-            if x0[i] <= x_index[0] <= x0[i] + xf[i]:
-                return True
-            elif x0[i] <= x_index[1] <= x0[i] + xf[i]:
-                return True
+            # if (x0[i] <= x_index[0]) and 
+            # (x_index[0] <= x0[i] + xf[i] and
+            # (y0[i] <= y_index[0]) and 
+            # ( y_index[0] <= y0[i] + yf[i]):
+            #     return True
+            # elif (x0[i] <= (x_index[0] + x_index[1])) and 
+            # ((x_index[0] + x_index[1]) <= x0[i] + xf[i] 
+            # and (y0[i] <= y_index[0]+ y_index[1])
+            # and ((y_index[0]+ y_index[1] )<= y0[i] + yf[i])):
+            #     return True
+            if ((x0[i] <= x_index[0]) and 
+            (x_index[0] <= x0[i] + xf[i]) or 
+            ((x0[i] <= (x_index[0] + x_index[1])) and 
+            ((x_index[0] + x_index[1]) <= x0[i] + xf[i] ))):
+                if (((y0[i] <= y_index[0]) and 
+                ( y_index[0] <= y0[i] + yf[i])) or
+                ((y0[i] <= y_index[0]+ y_index[1]) and
+                ((y_index[0]+ y_index[1] )<= y0[i] + yf[i]))):
+                    return True
+
+
+        # if c1 or c2:
+            #if c3 or c4:
+                #return true
         x0.append(x_index[0])
         xf.append(x_index[1])
-
-        y_index = [box[1], box[3]]
-        for i in range(len(y0)):
-            if y0[i] <= y_index[0] <= y0[i] + yf[i]:
-                return True
-            elif y0[i] <= y_index[1] <= y0[i] + yf[i]:
-                return True
         y0.append(y_index[0])
         yf.append(y_index[1])
         # check if collision
@@ -67,12 +82,12 @@ def writeOcclusion(path):
 
 
 def testing():
-    writeOcclusion("instances_txt/0001.txt")
+    writeOcclusion("instances_txt/0000.txt")
 
 
 if __name__ == "__main__":
-    INSTANCE_PATH = r"./instances_txt"
-    for file in os.listdir(INSTANCE_PATH):
-        writeOcclusion(file)
-    # INSTANCE_PATH = "./"
-    # testing()
+    # INSTANCE_PATH = r"./instances_txt"
+    # for file in os.listdir(INSTANCE_PATH):
+    #     writeOcclusion(file)
+    INSTANCE_PATH = "./"
+    testing()
