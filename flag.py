@@ -47,7 +47,7 @@ def returnBoxes(frame):
 
 
 def writeOcclusion(path):
-    frames = load_txt(os.path.join(INSTANCE_PATH, path))
+    frames = load_txt(path)
     occlusions = []
     for x in range(len(frames)):
         try:
@@ -71,8 +71,11 @@ def testing():
 
 
 if __name__ == "__main__":
-    INSTANCE_PATH = r"./instances_txt"
-    for file in os.listdir(INSTANCE_PATH):
+    in_dir = r"./instances_txt"
+    INSTANCE_PATH = in_dir
+    data_paths = [os.path.join(in_dir, f) for f in os.listdir(in_dir)]
+    data_paths = [i for i in data_paths if os.path.isfile(i)]
+    for file in data_paths:
         writeOcclusion(file)
     # INSTANCE_PATH = "./"
     # testing()
