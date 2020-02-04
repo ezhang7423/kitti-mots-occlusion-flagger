@@ -13,7 +13,7 @@ def isOccluded(boxes):
     y0 = []
     yf = []
     for x in range(len(boxes)):
-        print(boxes[x])    
+        # print(boxes[x])    
         box = [i for i in boxes[x]]
         # x0 += [box[0]] move this to bottom of function
         # xf += [box[2]]
@@ -63,6 +63,7 @@ def returnBoxes(frame):
 
 def writeOcclusion(path):
     frames = load_txt(os.path.join(INSTANCE_PATH, path))
+    print(len(frames))
     occlusions = []
     for x in range(len(frames)):
         try:
@@ -70,6 +71,9 @@ def writeOcclusion(path):
             occlusions.append(oc)
             if oc:
                 print("Occlusion at file", os.path.basename(
+                    path)[:-4], "frame", x)
+            else:
+                  print("No occlusion at file", os.path.basename(
                     path)[:-4], "frame", x)
         except KeyError:
             print('No data at frame', x)
@@ -82,7 +86,7 @@ def writeOcclusion(path):
 
 
 def testing():
-    writeOcclusion("instances_txt/0000.txt")
+    writeOcclusion("instances_txt/0001.txt")
 
 
 if __name__ == "__main__":
